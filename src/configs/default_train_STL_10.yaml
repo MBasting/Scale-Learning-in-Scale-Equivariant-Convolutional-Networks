@@ -1,0 +1,29 @@
+train: 
+  learning_rate : 0.1
+  lr_steps : [300, 400, 600, 800]
+  lr_gamma : 0.2
+  epochs : 1000
+  momentum : 0.9
+  nesterov : true
+  weight_decay : 5e-4 # For DISCO 1e-4
+  check_val_every_n_epoch : 50
+  refresh_rate_prog : 25
+
+  scale_lr : 0.005
+  scale_warmup_epochs : 150
+  scale_lr_step_sizes : null
+  scale_lr_annealing_min : null
+
+
+  # Dataset loading specifics
+  batch_size : 128
+
+  # augment: ['crop', 'flip', 'cutout'] - configured in Loaders_refreshed.py
+model:
+  depth : 16
+  widen_factor : 8
+  drop_rate : 0.3
+  nr_internal : 3
+  init_scales : 2 # Can be encoded to mean different things
+  basis_type_variant : a
+  basis_min_scale : 0.9

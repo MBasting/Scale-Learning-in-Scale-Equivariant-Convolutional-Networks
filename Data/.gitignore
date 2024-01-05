@@ -1,0 +1,8 @@
+*MNIST/
+*STL_10/
+*.png
+*.jpg
+*.gz
+!*.csv
+!*.pkl
+*data.csv

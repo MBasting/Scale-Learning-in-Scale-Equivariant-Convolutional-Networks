@@ -1,0 +1,67 @@
+# seed
+device: 'cuda:0'
+cluster : false
+train:
+  early_stop : false
+  autocast : false
+
+  accumulate_grad_batches : 1
+
+model:
+  # 1: CNN, 2: SRF, 3: FlexConv 4: FlexConvScale 5: SESN, 6: DISCO, 7: DISCO_FREE, 8: DISCO_DILATED
+  conv_index : ??? 
+  # 1: OFF, 2: Direct_Scales, 3: RATIO, 4: Single Ratio, 5: DISTANCES
+  scale_learn_mode : 1 
+  learnable_basis_min : true
+  decoupled_basis_min : false
+  # base_kernel_size => This allows us to scale the kernel while keeping the number of functions the same
+  largest_kernel_size : null
+  kernel_size_init_k : null
+  # SESN/DISCO hyperparams
+  basis_max_order : 4
+  basis_mult : 1.4
+  basis_min_scale : 1.5
+  # MNIST_Scale default [SESN, DISCO]: MULT - [1.4,1.5], MIN_SCALE - [1.5,1.9]
+  # STL_default [SESN, DISCO]: MIN_SCALE : []
+  basis_save_dir : 'precalculated_basis/'
+
+
+dataset:
+  # 1: TOY, 2: Mnist_scale, 3: FashionMnist_scale, 4: Aerial, 5: EMOJI, 6: Mnist_Large_scale, 7: TrafficSign
+  d_index: ???
+  root: ../Data
+  nr_workers : 6
+
+  # Information about datatest - filled in automatically
+  nr_classes : ??
+  nr_scales : ??
+  img_size : 28
+  in_channels: 1 # Get's automatically overriden for STL-10
+
+  # MNIST SPECIFIC hyperparameters 
+  extra_scaling : 1.0
+  generation_mode : null
+  discrete_scale : 0.3 
+  calc_acc_per_scale : false
+  additional_train : false
+  size_train_perc : 1.0
+  val_size : 2000
+
+  # MNIST Dataset dynamic parameters
+  dynamic : false
+  discrete : false
+  dist_params : ['UNIFORM', 0.3, 0.7]
+  cutoff : [0.3, 1.0]
+  resize_factor : 1.0
+
+  # test_flag for extensive evaluation
+  in_depth_test : false
+debug:
+  fit_single_batch : false
+wandb:
+  local : true
+  sweep: false
+  dir: ./wandb
+  entity: 'mbasting'
+  tags : ???
+  project: ???

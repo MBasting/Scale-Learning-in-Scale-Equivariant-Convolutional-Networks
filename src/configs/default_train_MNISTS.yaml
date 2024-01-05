@@ -1,0 +1,55 @@
+train: # ALL related to MNIST-SCALE
+  learning_rate: 0.01
+  lr_steps: [20, 40]
+  lr_gamma: 0.1 # TODO: Incorporate this into the lr_steps
+  epochs: 60
+
+  # Scale Learning Specifc
+  scale_lr : 0.01
+  scale_warmup_epochs : 5
+  scale_lr_step_sizes : [20,40]
+  scale_lr_gamma : 0.75
+  scale_lr_annealing_min : null
+
+  check_val_every_n_epoch : 1
+  refresh_rate_prog : 10
+
+  # Data Loading Specifics
+  batch_size : 128
+  eval_batch_size : 128
+model:
+  # 1: CNN, 2: SRF, 3: FlexConv 4: FlexConvScale 5: SESN, 6: DISCO, 7: DISCO_FREE, 8: DISCO_DILATED
+  # m_index : ??? # Rename to model_index
+  upsample_factor : 2.0
+  # 1: OFF, 2: Direct_Scales, 3: RATIO, 4: Single Ratio, 5: DISTANCES
+  # scale_learn_mode : 1 
+  # scale_lr : 0.001
+  eff_size : 7
+  kernel_size : 15 # Only used for CNN
+  hidden_channels : [32, 63, 95]
+  hidden_channels_scale : 1
+  Relu : true
+  batch_norm : true
+  pool_type_inter : Max
+  pool_size_inter : 2
+  pool_type_final : Max # Options are Avg, AvgMax (used for disco), Max (SESN)
+  pool_size_final : null
+  pool_padding_final : 2
+  use_HH : true
+  linear : true
+  linear_hidden_class : 256
+  dropout_class : 0.7
+  inter_layer_dropout : 0.2 # Parameter used in FlexConv Network
+  basis_type_variant : b
+  init_scales : 2.0
+  nr_internal : 4
+
+  full_original : false
+  separated_scale_est : true
+
+  # Conv parameters
+  conv_bias : true
+  
+
+
+
